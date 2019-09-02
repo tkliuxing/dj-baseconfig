@@ -1,0 +1,4 @@
+include MANIFEST.in
+include README.md
+recursive-include baseconfig/templates *
+global-exclude __pycache__ *.pyc
