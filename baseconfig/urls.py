@@ -11,5 +11,5 @@ router.register(r'baseconfigvalue', api.BaseConfigValueViewSet)
 
 urlpatterns = (
     # urls for Django Rest Framework API
-    path('api/v1/', include(router.urls)),
+    path('api/', include(router.urls)),
 )

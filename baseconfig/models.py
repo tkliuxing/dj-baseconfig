@@ -6,7 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 class BaseConfigCategory(models.Model):
     """基础类别"""
     name = models.CharField('类别名称', max_length=255)
-    content_types = models.ManyToManyField(ContentType, verbose_name='模型类型', help_text="使用模型反查时需要填写")
+    content_types = models.ManyToManyField(ContentType, verbose_name='模型类型',
+                                           help_text="使用模型反查时需要填写", blank=True)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
     
     class Meta:
@@ -39,9 +40,9 @@ class BaseConfigItem(models.Model):
     class Meta:
         verbose_name = '基础配置项定义'
         verbose_name_plural = verbose_name
-        ordering = ['category']
+        ordering = ['category', 'pk']
 
-    def _str__(self):
+    def __str__(self):
         return self.name
 
 
@@ -59,7 +60,10 @@ class BaseConfigValue(models.Model):
         verbose_name = '基础配置项值'
         verbose_name_plural = verbose_name
         ordering = ['item']
-    
+
+    def __str__(self):
+        return "{0}: {1} {2}".format(self.item.name, str(self.value), self.item.unit or '')
+
     def get_value(self):
         if self.item.item_type == 'str':
             return self.str_value
@@ -81,11 +85,11 @@ class BaseConfigValue(models.Model):
         elif self.item.item_type == 'bool':
             self.bool_value = bool(value)
         elif self.item.item_type == 'int':
-            self.int_value == int(value)
+            self.int_value = int(value)
         elif self.item.item_type == 'float':
-            self.float_value == float(value)
+            self.float_value = float(value)
         elif self.item.item_type == 'decimal':
-            self.decimal_value == Decimal(value)
+            self.decimal_value = Decimal(value)
         else:
             raise TypeError('BaseConfigItem {0} item_type error'.format(self.item.pk))
     

@@ -14,6 +14,16 @@ class BaseConfigCategorySerializer(serializers.ModelSerializer):
         )
 
 
+class BaseConfigItemSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.BaseConfigItem
+        fields = (
+            'pk',
+            'name',
+            'item_type'
+        )
+
+
 class BaseConfigItemSerializer(serializers.ModelSerializer):
     category = BaseConfigCategorySerializer(read_only=True)
 
