@@ -25,15 +25,16 @@ class BaseConfigItemSimpleSerializer(serializers.ModelSerializer):
 
 
 class BaseConfigItemSerializer(serializers.ModelSerializer):
-    category = BaseConfigCategorySerializer(read_only=True)
+    # category = BaseConfigCategorySerializer(read_only=True)
     item_id = serializers.SerializerMethodField()
+    category_name = serializers.SerializerMethodField()
 
     class Meta:
         model = models.BaseConfigItem
         fields = (
             'pk',
             'item_id',
-            'category',
+            'category_name',
             'category_id',
             'name',
             'item_type',
@@ -46,6 +47,9 @@ class BaseConfigItemSerializer(serializers.ModelSerializer):
 
     def get_item_id(self, obj):
         return obj.pk
+
+    def get_category_name(self, obj):
+        return obj.category.name
 
 
 class BaseConfigValueSerializer(serializers.ModelSerializer):
