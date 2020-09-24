@@ -3,15 +3,15 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="hx-baseconfig",
+    name="dj-baseconfig",
     version="0.1",
     author='Ronald Bai',
     author_email='tkliuxing@163.com',
-    url='http://git.nmhuixin.com/hxpackage/hx-baseconfig',
+    url='https://github.com/tkliuxing/dj-baseconfig',
     packages=find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     install_requires=[
-        'Django>=1.11',
+        'Django<3.0',
     ],
     python_requires=">=3.5",
     classifiers=[
